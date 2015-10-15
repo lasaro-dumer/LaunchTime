@@ -104,5 +104,10 @@ namespace LTDataLayer.DataLayer
         {
             return list.Find(x => x.ID == info.ID || x.Name == info.Name);
         }
+
+        public override RestaurantInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

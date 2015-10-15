@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlServerCe;
 
 namespace LTDataLayer.DataLayer
 {
@@ -20,14 +21,7 @@ namespace LTDataLayer.DataLayer
         /// </summary>
         private UsersProvider()
         {
-            if (list == null)
-            {
-                list = new List<UserInfo>();
-                list.Add(new UserInfo() { ID = NextID(), Name = "John", Login = "john" });
-                list.Add(new UserInfo() { ID = NextID(), Name = "Jack", Login = "jack" });
-                list.Add(new UserInfo() { ID = NextID(), Name = "Zack", Login = "zack" });
-                list.Add(new UserInfo() { ID = NextID(), Name = "Mack", Login = "mack" });
-            }
+            list = new List<UserInfo>();
         }
 
         /// <summary>
@@ -49,7 +43,36 @@ namespace LTDataLayer.DataLayer
         /// <returns>a list of users</returns>
         public override List<UserInfo> SelectAll()
         {
+            list.Clear();
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT ID,Name,Login FROM USERS";
+                SqlCeDataReader dReader = command.ExecuteReader();
+                while (dReader.Read())
+                {
+                    list.Add(DataToInfo(dReader));
+                }
+            }
             return list;
+        }
+
+        /// <summary>
+        /// Get an user info from the current SqlCeDataReader row
+        /// </summary>
+        /// <param name="dr">a data reader</param>
+        /// <returns>a new UserInfo</returns>
+        public override UserInfo DataToInfo(SqlCeDataReader dr)
+        {
+            UserInfo info = new UserInfo();
+            if (dr["ID"] != null)
+                info.ID = Convert.ToInt32(dr["ID"]);
+            if (dr["Name"] != null)
+                info.Name = dr["Name"].ToString();
+            if (dr["Login"] != null)
+                info.Login = dr["Login"].ToString();
+            return info;
         }
 
         /// <summary>
@@ -59,16 +82,23 @@ namespace LTDataLayer.DataLayer
         /// <returns>ID of inserted user</returns>
         public override int Insert(UserInfo info)
         {
-            if (list.Any(x => x.Login == info.Login))
+            info = this.Details(info);
+            if (!info.ID.HasValue)
             {
-                return list.Find(x => x.Login == info.Login).ID.Value;
-            }
-            else
-            {
-                info.ID = NextID();
+                using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+                {
+                    conn.Open();
+                    SqlCeCommand command = conn.CreateCommand();
+                    command.CommandText = "INSERT INTO Users (Name,Login) VALUES (@Name,@Login)";
+                    command.Parameters.Add("@Name", info.Name);
+                    command.Parameters.Add("@Login", info.Login);
+                    if (command.ExecuteNonQuery() != 1)
+                        return 0;
+                }
+                info = this.Details(info);
                 list.Add(info);
-                return info.ID.Value;
             }
+            return info.ID.Value;
         }
 
         /// <summary>
@@ -77,6 +107,25 @@ namespace LTDataLayer.DataLayer
         /// <param name="info">the user to be updated</param>
         public override void Update(UserInfo info)
         {
+            if (info.ID.HasValue)
+            {
+                using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+                {
+                    conn.Open();
+                    SqlCeCommand command = conn.CreateCommand();
+                    command.CommandText = "UPDATE Users SET Name=@Name,Login=@Login WHERE ID = @ID";
+                    command.Parameters.Add("@Name", info.Name);
+                    command.Parameters.Add("@Login", info.Login);
+                    command.Parameters.Add("@ID", info.ID);
+                    command.ExecuteNonQuery();
+                }
+                info = this.Details(info);
+                list.Add(info);
+            }
+            else
+            {
+                this.Insert(info);
+            }
             UserInfo data = list.Find(x => x.ID == info.ID);
             if (data != null)
             {
@@ -100,7 +149,22 @@ namespace LTDataLayer.DataLayer
         /// <returns>full user's info</returns>
         public override UserInfo Details(UserInfo info)
         {
-            return list.Find(x => x.ID == info.ID || x.Login == info.Login);
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT ID,Name,Login FROM USERS WHERE Login = @Login";
+                if (info.ID.HasValue)
+                {
+                    command.CommandText += " OR ID = @ID";
+                    command.Parameters.Add("@ID", info.ID);
+                }
+                command.Parameters.Add("@Login", info.Login);
+                SqlCeDataReader dReader = command.ExecuteReader();
+                if (dReader.Read())
+                    info = DataToInfo(dReader);
+            }
+            return info;
         }
     }
 }

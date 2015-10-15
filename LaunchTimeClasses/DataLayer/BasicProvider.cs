@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlServerCe;
 
 namespace LTDataLayer.DataLayer
 {
@@ -24,6 +25,18 @@ namespace LTDataLayer.DataLayer
             _nextID++;
             return toGo;
         }
+
+        /// <summary>
+        /// Get default connection string
+        /// </summary>
+        protected String ConnectionString { get { return LTDataLayer.Properties.Settings.Default.LaunchTimeDBConnectionString; } }
+
+        /// <summary>
+        /// Get a new object of type T from the current SqlCeDataReader row
+        /// </summary>
+        /// <param name="dr">a data reader</param>
+        /// <returns>a new type T object</returns>
+        public abstract T DataToInfo(SqlCeDataReader dr);
 
         /// <summary>
         /// Insert signature for providers

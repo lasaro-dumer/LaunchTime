@@ -39,7 +39,7 @@ namespace LaunchTimeWindows
             txtCntdownMinute.Text = Countdown.Minute.ToString();
             loggedUsers = new List<UserForm>();
             tmrMain.Start();
-
+            UsersController.ListAll();
             this.admin = admin.HasValue && admin.Value;
             if (!this.admin)
                 tabMain.TabPages.Remove(tabAdmin);

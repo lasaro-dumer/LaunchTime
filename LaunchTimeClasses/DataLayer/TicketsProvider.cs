@@ -101,5 +101,10 @@ namespace LTDataLayer.DataLayer
         {
             return list.Find(x => x.ID == info.ID || (x.Poll.ID == info.Poll.ID && x.User.ID == info.User.ID));
         }
+
+        public override TicketInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

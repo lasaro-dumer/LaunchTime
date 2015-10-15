@@ -112,5 +112,10 @@ namespace LTDataLayer.DataLayer
         {
             return list.Where(p => p.Week == week).ToList();
         }
+
+        public override PollInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

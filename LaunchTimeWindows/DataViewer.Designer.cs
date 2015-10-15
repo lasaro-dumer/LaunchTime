@@ -30,46 +30,46 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gridRestaurants = new System.Windows.Forms.DataGridView();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restaurantInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabsViews = new System.Windows.Forms.TabControl();
             this.tabRestaurants = new System.Windows.Forms.TabPage();
             this.tabUsers = new System.Windows.Forms.TabPage();
             this.gridUsers = new System.Windows.Forms.DataGridView();
-            this.tabPolls = new System.Windows.Forms.TabPage();
-            this.gridPolls = new System.Windows.Forms.DataGridView();
-            this.tabTickets = new System.Windows.Forms.TabPage();
-            this.gridTickets = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restaurantInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.loginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPolls = new System.Windows.Forms.TabPage();
+            this.gridPolls = new System.Windows.Forms.DataGridView();
             this.iDDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.weekDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pollInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabTickets = new System.Windows.Forms.TabPage();
+            this.gridTickets = new System.Windows.Forms.DataGridView();
             this.iDDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Poll = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Restaurant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.User = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ticketInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridRestaurants)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantInfoBindingSource)).BeginInit();
             this.tabsViews.SuspendLayout();
             this.tabRestaurants.SuspendLayout();
             this.tabUsers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userInfoBindingSource)).BeginInit();
             this.tabPolls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPolls)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollInfoBindingSource)).BeginInit();
             this.tabTickets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTickets)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,6 +89,24 @@
             this.gridRestaurants.ReadOnly = true;
             this.gridRestaurants.Size = new System.Drawing.Size(513, 382);
             this.gridRestaurants.TabIndex = 0;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // restaurantInfoBindingSource
+            // 
+            this.restaurantInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.RestaurantInfo);
             // 
             // tabsViews
             // 
@@ -142,6 +160,31 @@
             this.gridUsers.Size = new System.Drawing.Size(513, 382);
             this.gridUsers.TabIndex = 0;
             // 
+            // iDDataGridViewTextBoxColumn1
+            // 
+            this.iDDataGridViewTextBoxColumn1.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn1.Name = "iDDataGridViewTextBoxColumn1";
+            this.iDDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // loginDataGridViewTextBoxColumn
+            // 
+            this.loginDataGridViewTextBoxColumn.DataPropertyName = "Login";
+            this.loginDataGridViewTextBoxColumn.HeaderText = "Login";
+            this.loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
+            this.loginDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // userInfoBindingSource
+            // 
+            this.userInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.UserInfo);
+            // 
             // tabPolls
             // 
             this.tabPolls.Controls.Add(this.gridPolls);
@@ -170,96 +213,6 @@
             this.gridPolls.ReadOnly = true;
             this.gridPolls.Size = new System.Drawing.Size(519, 388);
             this.gridPolls.TabIndex = 0;
-            // 
-            // tabTickets
-            // 
-            this.tabTickets.Controls.Add(this.gridTickets);
-            this.tabTickets.Location = new System.Drawing.Point(4, 22);
-            this.tabTickets.Name = "tabTickets";
-            this.tabTickets.Size = new System.Drawing.Size(519, 388);
-            this.tabTickets.TabIndex = 2;
-            this.tabTickets.Text = "Tickets";
-            this.tabTickets.UseVisualStyleBackColor = true;
-            // 
-            // gridTickets
-            // 
-            this.gridTickets.AllowUserToAddRows = false;
-            this.gridTickets.AllowUserToDeleteRows = false;
-            this.gridTickets.AutoGenerateColumns = false;
-            this.gridTickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTickets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn3,
-            this.Poll,
-            this.Restaurant,
-            this.User});
-            this.gridTickets.DataSource = this.ticketInfoBindingSource;
-            this.gridTickets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridTickets.Location = new System.Drawing.Point(0, 0);
-            this.gridTickets.Name = "gridTickets";
-            this.gridTickets.ReadOnly = true;
-            this.gridTickets.Size = new System.Drawing.Size(519, 388);
-            this.gridTickets.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Poll";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Poll";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Restaurant";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Restaurant";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "User";
-            this.dataGridViewTextBoxColumn3.HeaderText = "User";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // restaurantInfoBindingSource
-            // 
-            this.restaurantInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.RestaurantInfo);
-            // 
-            // iDDataGridViewTextBoxColumn1
-            // 
-            this.iDDataGridViewTextBoxColumn1.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn1.Name = "iDDataGridViewTextBoxColumn1";
-            this.iDDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // loginDataGridViewTextBoxColumn
-            // 
-            this.loginDataGridViewTextBoxColumn.DataPropertyName = "Login";
-            this.loginDataGridViewTextBoxColumn.HeaderText = "Login";
-            this.loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
-            this.loginDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // userInfoBindingSource
-            // 
-            this.userInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.UserInfo);
             // 
             // iDDataGridViewTextBoxColumn2
             // 
@@ -293,6 +246,35 @@
             // 
             this.pollInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.PollInfo);
             // 
+            // tabTickets
+            // 
+            this.tabTickets.Controls.Add(this.gridTickets);
+            this.tabTickets.Location = new System.Drawing.Point(4, 22);
+            this.tabTickets.Name = "tabTickets";
+            this.tabTickets.Size = new System.Drawing.Size(519, 388);
+            this.tabTickets.TabIndex = 2;
+            this.tabTickets.Text = "Tickets";
+            this.tabTickets.UseVisualStyleBackColor = true;
+            // 
+            // gridTickets
+            // 
+            this.gridTickets.AllowUserToAddRows = false;
+            this.gridTickets.AllowUserToDeleteRows = false;
+            this.gridTickets.AutoGenerateColumns = false;
+            this.gridTickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridTickets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn3,
+            this.Poll,
+            this.Restaurant,
+            this.User});
+            this.gridTickets.DataSource = this.ticketInfoBindingSource;
+            this.gridTickets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTickets.Location = new System.Drawing.Point(0, 0);
+            this.gridTickets.Name = "gridTickets";
+            this.gridTickets.ReadOnly = true;
+            this.gridTickets.Size = new System.Drawing.Size(519, 388);
+            this.gridTickets.TabIndex = 0;
+            // 
             // iDDataGridViewTextBoxColumn3
             // 
             this.iDDataGridViewTextBoxColumn3.DataPropertyName = "ID";
@@ -325,6 +307,24 @@
             // 
             this.ticketInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.TicketInfo);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Poll";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Poll";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Restaurant";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Restaurant";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "User";
+            this.dataGridViewTextBoxColumn3.HeaderText = "User";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
             // DataViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -338,17 +338,17 @@
             this.Activated += new System.EventHandler(this.DataViewer_Activated);
             this.Enter += new System.EventHandler(this.DataViewer_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.gridRestaurants)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurantInfoBindingSource)).EndInit();
             this.tabsViews.ResumeLayout(false);
             this.tabRestaurants.ResumeLayout(false);
             this.tabUsers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userInfoBindingSource)).EndInit();
             this.tabPolls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridPolls)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollInfoBindingSource)).EndInit();
             this.tabTickets.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridTickets)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restaurantInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
 

@@ -15,7 +15,7 @@ namespace LaunchTimeWindows
         static void Main(string[] args)
         {
             bool admin = args.Contains("-admin");
-            bool debug = args.Contains("-admin");
+            bool debug = args.Contains("-debug");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm(admin, debug));

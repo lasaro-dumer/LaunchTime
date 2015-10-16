@@ -161,8 +161,12 @@ namespace LTDataLayer.DataLayer
             return info;
         }
 
-        //TODO: summary
-        public override TicketInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
+        /// <summary>
+        /// Get a ticket info from the current SqlCeDataReader row
+        /// </summary>
+        /// <param name="dr">a data reader</param>
+        /// <returns>a new TicketInfo</returns>
+        public override TicketInfo DataToInfo(SqlCeDataReader dr)
         {
             TicketInfo info = new TicketInfo();
             if (ColumnExists(dr, "ID"))
@@ -199,7 +203,11 @@ namespace LTDataLayer.DataLayer
             return info;
         }
 
-        //TODO: summary
+        /// <summary>
+        /// Select tickets of a poll
+        /// </summary>
+        /// <param name="poll">the ticket's poll</param>
+        /// <returns>a list of tickets from poll</returns>
         public List<TicketInfo> SelectByPoll(PollInfo poll)
         {
             List<TicketInfo> byPoll = new List<TicketInfo>();

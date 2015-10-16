@@ -73,7 +73,7 @@ namespace LTDataLayer.DataLayer
                     conn.Open();
                     SqlCeCommand command = conn.CreateCommand();
                     command.CommandText = "INSERT INTO Polls (Date,Closed) VALUES (@Date,@Closed)";
-                    command.Parameters.Add("@Date", info.Date);
+                    command.Parameters.Add("@Date", info.Date.Date);
                     command.Parameters.Add("@Closed", false);
                     if (command.ExecuteNonQuery() != 1)
                         return 0;
@@ -136,7 +136,7 @@ namespace LTDataLayer.DataLayer
                     command.CommandText += " OR ID = @ID";
                     command.Parameters.Add("@ID", info.ID);
                 }
-                command.Parameters.Add("@Date", info.Date);
+                command.Parameters.Add("@Date", info.Date.Date);
                 SqlCeDataReader dReader = command.ExecuteReader();
                 if (dReader.Read())
                     info = DataToInfo(dReader);
@@ -159,8 +159,8 @@ namespace LTDataLayer.DataLayer
                 command.CommandText = "SELECT ID,Date,Closed FROM Polls WHERE Date BETWEEN @FirstDay AND @LastDay";
                 DateTime firstDay = baseDate.AddDays((int)baseDate.DayOfWeek * -1);
                 DateTime lastDay = baseDate.AddDays(-1);
-                command.Parameters.Add("@FirstDay", firstDay);
-                command.Parameters.Add("@LastDay", lastDay);
+                command.Parameters.Add("@FirstDay", firstDay.Date);
+                command.Parameters.Add("@LastDay", lastDay.Date);
                 SqlCeDataReader dReader = command.ExecuteReader();
                 while (dReader.Read())
                 {

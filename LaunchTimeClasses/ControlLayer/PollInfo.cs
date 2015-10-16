@@ -29,6 +29,12 @@ namespace LTDataLayer.ControlLayer
         /// Get the poll's votes
         /// </summary>
         public List<TicketInfo> Votes { get { return _votes; } }
+
+        /// <summary>
+        /// Get the poll's winner
+        /// </summary>
+        public RestaurantInfo Winner { get; set; }
+
         /// <summary>
         /// Get the poll's week of the year
         /// </summary>
@@ -42,25 +48,7 @@ namespace LTDataLayer.ControlLayer
             _votes = new List<TicketInfo>();
             Closed = false;
         }
-
-        /// <summary>
-        /// Evaluates poll's winner
-        /// </summary>
-        /// <returns>poll's winner</returns>
-        public RestaurantInfo Winner()
-        {
-            var teste = (from v in Votes
-                         group v by v.Restaurant into G
-                         select new { Votes = G.Count(), Restaurant = G.Key });
-            if (teste.Count()>0)
-            {
-                var tmp = teste.First(r => r.Votes == teste.Max(v => v.Votes));
-                if (tmp != null)
-                    return tmp.Restaurant;
-            }
-            return null;
-        }
-
+        
         public override string ToString()
         {
             return Date.ToString("dd/MM/yyyy");

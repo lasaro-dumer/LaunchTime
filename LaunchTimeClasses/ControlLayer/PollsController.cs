@@ -29,7 +29,9 @@ namespace LTDataLayer.ControlLayer
         public static PollInfo PollFromDate(DateTime date)
         {
             PollsProvider.Instance.Insert(new PollInfo() { Date = date });
-            return PollsProvider.Instance.Details(new PollInfo() { Date = date });
+            PollInfo poll = PollsProvider.Instance.Details(new PollInfo() { Date = date });
+            poll.Winner = GetPollWinner(poll);
+            return poll;
         }
 
         /// <summary>
@@ -81,8 +83,32 @@ namespace LTDataLayer.ControlLayer
                 List<TicketInfo> votes = TicketsController.SelectByPoll(poll);
                 foreach (TicketInfo vote in votes)
                     poll.AddVote(vote);
+                poll.Winner = GetPollWinner(poll);
             }
             return polls;
+        }
+
+        /// <summary>
+        /// Closes a poll
+        /// </summary>
+        /// <param name="poll">the poll to be closed</param>
+        /// <returns>the poll with his winner evaluated</returns>
+        public static PollInfo ClosePoll(PollInfo poll)
+        {
+            poll.Closed = true;
+            Update(poll);
+            poll.Winner = GetPollWinner(poll);
+            return poll;
+        }
+
+        /// <summary>
+        /// Gets the poll's winner
+        /// </summary>
+        /// <param name="poll">the poll</param>
+        /// <returns>poll's winner</returns>
+        public static RestaurantInfo GetPollWinner(PollInfo poll)
+        {
+            return PollsProvider.Instance.GetPollWinner(poll);
         }
     }
 }

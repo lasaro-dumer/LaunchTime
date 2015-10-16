@@ -27,8 +27,9 @@ namespace LaunchTimeWindows
             Countdown = new CountdownInfo();
             if (debug.HasValue && debug.Value)
             {
-                Countdown.Hour = DateTime.Now.Hour;
-                Countdown.Minute = DateTime.Now.AddSeconds(5 * 60).Minute;
+                DateTime limit = DateTime.Now.AddSeconds(5 * 60);
+                Countdown.Hour = limit.Hour;
+                Countdown.Minute = limit.Minute;
             }
             else
             {
@@ -68,7 +69,7 @@ namespace LaunchTimeWindows
             {
                 if (Countdown.CountdownEnd)
                 {
-                    TodayPoll.Closed = true;
+                    TodayPoll.Winner = PollsController.ClosePoll(TodayPoll).Winner;                    
                     tmrMain.Stop();
                 }
             }
@@ -82,7 +83,7 @@ namespace LaunchTimeWindows
         {
             try
             {
-                if (frmDataViewer == null)
+                if (frmDataViewer == null || frmDataViewer.IsDisposed)
                     frmDataViewer = new DataViewer();
                 frmDataViewer.Show();
                 frmDataViewer.Activate();
@@ -97,7 +98,16 @@ namespace LaunchTimeWindows
         {
             try
             {
-                TodayPoll = PollsController.PollFromDate(dtpPollDate.Value);
+                TodayPoll = PollsController.PollFromDate(dtpPollDate.Value.Date);
+                if (TodayPoll.Closed)
+                {
+                    TodayPoll.Closed = false;
+                    PollsController.Update(TodayPoll);
+                    foreach (UserForm loggedUser in loggedUsers)
+                    {
+                        loggedUser.ChangeCurrentPoll(TodayPoll);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -109,6 +119,8 @@ namespace LaunchTimeWindows
         {
             try
             {
+                tmrMain.Stop();
+
                 int hour;
                 int minute;
 
@@ -121,6 +133,13 @@ namespace LaunchTimeWindows
                     Countdown.Minute = minute;
                 else
                     txtCntdownMinute.Text = Countdown.Minute.ToString();
+
+                tmrMain.Start();
+
+                foreach (UserForm loggedUser in loggedUsers)
+                {
+                    loggedUser.ResetForm();
+                }
             }
             catch (Exception ex)
             {

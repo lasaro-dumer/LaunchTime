@@ -170,7 +170,12 @@ namespace LTDataLayer.DataLayer
             return byWeek;
         }
 
-        public override PollInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
+        /// <summary>
+        /// Get a poll info from the current SqlCeDataReader row
+        /// </summary>
+        /// <param name="dr">a data reader</param>
+        /// <returns>a new PollInfo</returns>
+        public override PollInfo DataToInfo(SqlCeDataReader dr)
         {
             PollInfo info = new PollInfo();
             if (ColumnExists(dr, "ID"))
@@ -180,6 +185,33 @@ namespace LTDataLayer.DataLayer
             if (ColumnExists(dr, "Closed"))
                 info.Closed = (bool)dr["Closed"];
             return info;
+        }
+
+        /// <summary>
+        /// Gets the poll's winner
+        /// </summary>
+        /// <param name="poll">the poll</param>
+        /// <returns>poll's winner</returns>
+        public RestaurantInfo GetPollWinner(PollInfo poll)
+        {
+            RestaurantInfo winner = null;
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT Restaurants.ID, Restaurants.Name, COUNT(*) AS Votes "+
+                                      "FROM Tickets " +
+                                      "INNER JOIN Polls ON Tickets.IDPoll = Polls.ID " +
+                                      "INNER JOIN Restaurants ON Tickets.IDRestaurant = Restaurants.ID "+
+                                      "WHERE Polls.ID = @ID " +
+                                      "GROUP BY Restaurants.Name, Restaurants.ID "+
+                                      "ORDER BY Votes DESC,Restaurants.ID";
+                command.Parameters.Add("@ID", poll.ID);
+                SqlCeDataReader dReader = command.ExecuteReader();
+                if (dReader.Read())
+                    winner = RestaurantsProvider.Instance.DataToInfo(dReader);
+            }
+            return winner;
         }
     }
 }

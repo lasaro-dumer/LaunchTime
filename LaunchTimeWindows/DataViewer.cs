@@ -30,14 +30,14 @@ namespace LaunchTimeWindows
             gridUsers.DataSource = null;
             gridPolls.DataSource = null;
             gridTickets.DataSource = null;
-            gridRestaurants.DataSource = RestaurantsController.ListAll();
-            gridUsers.DataSource = UsersController.ListAll();
-            gridPolls.DataSource = PollsController.ListAll();
-            gridTickets.DataSource = TicketsController.ListAll();
             gridRestaurants.Refresh();
             gridUsers.Refresh();
             gridPolls.Refresh();
             gridTickets.Refresh();
+            gridRestaurants.DataSource = RestaurantsController.ListAll();
+            gridUsers.DataSource = UsersController.ListAll();
+            gridPolls.DataSource = PollsController.ListAll();
+            gridTickets.DataSource = TicketsController.ListAll();
         }
     }
 }

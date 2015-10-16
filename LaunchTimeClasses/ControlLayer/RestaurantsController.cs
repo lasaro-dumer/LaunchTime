@@ -23,7 +23,7 @@ namespace LTDataLayer.ControlLayer
             List<PollInfo> weekPolls = PollsController.SelectByWeek(baseDate);
             List<RestaurantInfo> weekRestaurants = (from p in weekPolls
                                                     where p.Date.Date < baseDate.Date
-                                                    select p.Winner()).Where(r => r != null).ToList();
+                                                    select p.Winner).Where(r => r != null).ToList();
             List<RestaurantInfo> rest = RestaurantsProvider.Instance.SelectAll();
             foreach (RestaurantInfo wr in weekRestaurants)
             {

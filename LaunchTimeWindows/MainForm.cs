@@ -30,6 +30,7 @@ namespace LaunchTimeWindows
                 DateTime limit = DateTime.Now.AddSeconds(5 * 60);
                 Countdown.Hour = limit.Hour;
                 Countdown.Minute = limit.Minute;
+                this.Text += " -D";
             }
             else
             {
@@ -44,6 +45,8 @@ namespace LaunchTimeWindows
             this.admin = admin.HasValue && admin.Value;
             if (!this.admin)
                 tabMain.TabPages.Remove(tabAdmin);
+            else
+                this.Text += " -A";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

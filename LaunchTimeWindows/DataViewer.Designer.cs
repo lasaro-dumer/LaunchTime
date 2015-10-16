@@ -106,7 +106,7 @@
             // 
             // restaurantInfoBindingSource
             // 
-            this.restaurantInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.RestaurantInfo);
+            this.restaurantInfoBindingSource.DataSource = typeof(LaunchTimeClasses.ControlLayer.RestaurantInfo);
             // 
             // tabsViews
             // 
@@ -183,7 +183,7 @@
             // 
             // userInfoBindingSource
             // 
-            this.userInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.UserInfo);
+            this.userInfoBindingSource.DataSource = typeof(LaunchTimeClasses.ControlLayer.UserInfo);
             // 
             // tabPolls
             // 
@@ -244,7 +244,7 @@
             // 
             // pollInfoBindingSource
             // 
-            this.pollInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.PollInfo);
+            this.pollInfoBindingSource.DataSource = typeof(LaunchTimeClasses.ControlLayer.PollInfo);
             // 
             // tabTickets
             // 
@@ -305,7 +305,7 @@
             // 
             // ticketInfoBindingSource
             // 
-            this.ticketInfoBindingSource.DataSource = typeof(LTDataLayer.ControlLayer.TicketInfo);
+            this.ticketInfoBindingSource.DataSource = typeof(LaunchTimeClasses.ControlLayer.TicketInfo);
             // 
             // dataGridViewTextBoxColumn1
             // 

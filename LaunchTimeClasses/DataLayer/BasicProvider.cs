@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlServerCe;
 using System.Data;
 
-namespace LTDataLayer.DataLayer
+namespace LaunchTimeClasses.DataLayer
 {
     /// <summary>
     /// Basic provider structure
@@ -30,7 +30,7 @@ namespace LTDataLayer.DataLayer
         /// <summary>
         /// Get default connection string
         /// </summary>
-        protected String ConnectionString { get { return LTDataLayer.Properties.Settings.Default.LaunchTimeDBConnectionString; } }
+        protected String ConnectionString { get { return LaunchTimeClasses.Properties.Settings.Default.LaunchTimeDBConnectionString; } }
 
         /// <summary>
         /// Get a new object of type T from the current SqlCeDataReader row

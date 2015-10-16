@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LTDataLayer.ControlLayer
+namespace LaunchTimeClasses.ControlLayer
 {
     /// <summary>
     /// Represents a ticket voting in a poll

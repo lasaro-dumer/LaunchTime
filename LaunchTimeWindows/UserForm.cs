@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LTDataLayer.ControlLayer;
-using LTDataLayer.DataLayer;
+using LaunchTimeClasses.ControlLayer;
+using LaunchTimeClasses.DataLayer;
 
 namespace LaunchTimeWindows
 {

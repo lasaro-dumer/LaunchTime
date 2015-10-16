@@ -1,11 +1,11 @@
-﻿using LTDataLayer.DataLayer;
+﻿using LaunchTimeClasses.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LTDataLayer.ControlLayer
+namespace LaunchTimeClasses.ControlLayer
 {
     /// <summary>
     /// Business controller for polls

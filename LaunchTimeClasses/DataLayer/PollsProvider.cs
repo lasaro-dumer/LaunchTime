@@ -1,4 +1,4 @@
-﻿using LTDataLayer.ControlLayer;
+﻿using LaunchTimeClasses.ControlLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlServerCe;
 
-namespace LTDataLayer.DataLayer
+namespace LaunchTimeClasses.DataLayer
 {
     /// <summary>
     /// Singleton Provider for polls

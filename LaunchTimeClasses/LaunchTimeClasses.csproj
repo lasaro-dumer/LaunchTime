@@ -7,8 +7,8 @@
     <ProjectGuid>{428B306D-E439-49E8-B5CA-E9548410B958}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LTDataLayer</RootNamespace>
-    <AssemblyName>LTDataLayer</AssemblyName>
+    <RootNamespace>LaunchTimeClasses</RootNamespace>
+    <AssemblyName>LaunchTimeClasses</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

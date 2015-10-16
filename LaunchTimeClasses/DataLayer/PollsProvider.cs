@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlServerCe;
 
 namespace LTDataLayer.DataLayer
 {
@@ -20,18 +21,7 @@ namespace LTDataLayer.DataLayer
         /// </summary>
         private PollsProvider()
         {
-            if (list == null)
-            {
-                list = new List<PollInfo>();
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 1) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 2) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 5) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 6) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 7) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 8) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 9) });
-                list.Add(new PollInfo() { ID = NextID(), Date = new DateTime(2015, 10, 13) });
-            }
+            list = new List<PollInfo>();
         }
 
         /// <summary>
@@ -53,6 +43,18 @@ namespace LTDataLayer.DataLayer
         /// <returns>a list of polls</returns>
         public override List<PollInfo> SelectAll()
         {
+            list.Clear();
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT ID,Date,Closed FROM Polls";
+                SqlCeDataReader dReader = command.ExecuteReader();
+                while (dReader.Read())
+                {
+                    list.Add(DataToInfo(dReader));
+                }
+            }
             return list;
         }
 
@@ -63,16 +65,23 @@ namespace LTDataLayer.DataLayer
         /// <returns>ID of inserted poll</returns>
         public override int Insert(PollInfo info)
         {
-            if (list.Any(x => x.Date.Date == info.Date.Date))
+            info = this.Details(info);
+            if (!info.ID.HasValue)
             {
-                return list.Find(x => x.Date.Date == info.Date.Date).ID.Value;
-            }
-            else
-            {
-                info.ID = NextID();
+                using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+                {
+                    conn.Open();
+                    SqlCeCommand command = conn.CreateCommand();
+                    command.CommandText = "INSERT INTO Polls (Date,Closed) VALUES (@Date,@Closed)";
+                    command.Parameters.Add("@Date", info.Date);
+                    command.Parameters.Add("@Closed", false);
+                    if (command.ExecuteNonQuery() != 1)
+                        return 0;
+                }
+                info = this.Details(info);
                 list.Add(info);
-                return info.ID.Value;
             }
+            return info.ID.Value;
         }
 
         /// <summary>
@@ -81,7 +90,24 @@ namespace LTDataLayer.DataLayer
         /// <param name="info">the poll to be updated</param>
         public override void Update(PollInfo info)
         {
-            throw new Exception("Unsupported operation");
+            if (info.ID.HasValue)
+            {
+                using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+                {
+                    conn.Open();
+                    SqlCeCommand command = conn.CreateCommand();
+                    command.CommandText = "UPDATE Polls SET Closed=@Closed WHERE ID = @ID";
+                    command.Parameters.Add("@Closed", info.Closed);
+                    command.Parameters.Add("@ID", info.ID);
+                    command.ExecuteNonQuery();
+                }
+                info = this.Details(info);
+                list.Add(info);
+            }
+            else
+            {
+                this.Insert(info);
+            }
         }
 
         /// <summary>
@@ -100,22 +126,60 @@ namespace LTDataLayer.DataLayer
         /// <returns>full poll's info</returns>
         public override PollInfo Details(PollInfo info)
         {
-            return list.Find(x => x.ID == info.ID || x.Date.Date == info.Date.Date);
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT ID,Date,Closed FROM Polls WHERE Date = @Date";
+                if (info.ID.HasValue)
+                {
+                    command.CommandText += " OR ID = @ID";
+                    command.Parameters.Add("@ID", info.ID);
+                }
+                command.Parameters.Add("@Date", info.Date);
+                SqlCeDataReader dReader = command.ExecuteReader();
+                if (dReader.Read())
+                    info = DataToInfo(dReader);
+            }
+            return info;
         }
 
         /// <summary>
-        /// Select polls based on a week
+        /// Selects a list of polls from the week of base date
         /// </summary>
-        /// <param name="week">week of polls to select</param>
-        /// <returns>a list of polls on a week</returns>
-        public List<PollInfo> SelectByWeek(int week)
+        /// <param name="baseDate">base date</param>
+        /// <returns>a list of polls</returns>
+        public List<PollInfo> SelectByWeek(DateTime baseDate)
         {
-            return list.Where(p => p.Week == week).ToList();
+            List<PollInfo> byWeek = new List<PollInfo>();
+            using (SqlCeConnection conn = new SqlCeConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCeCommand command = conn.CreateCommand();
+                command.CommandText = "SELECT ID,Date,Closed FROM Polls WHERE Date BETWEEN @FirstDay AND @LastDay";
+                DateTime firstDay = baseDate.AddDays((int)baseDate.DayOfWeek * -1);
+                DateTime lastDay = baseDate.AddDays(-1);
+                command.Parameters.Add("@FirstDay", firstDay);
+                command.Parameters.Add("@LastDay", lastDay);
+                SqlCeDataReader dReader = command.ExecuteReader();
+                while (dReader.Read())
+                {
+                    byWeek.Add(DataToInfo(dReader));
+                }
+            }
+            return byWeek;
         }
 
         public override PollInfo DataToInfo(System.Data.SqlServerCe.SqlCeDataReader dr)
         {
-            throw new NotImplementedException();
+            PollInfo info = new PollInfo();
+            if (ColumnExists(dr, "ID"))
+                info.ID = Convert.ToInt32(dr["ID"]);
+            if (ColumnExists(dr, "Date"))
+                info.Date = (DateTime)dr["Date"];
+            if (ColumnExists(dr, "Closed"))
+                info.Closed = (bool)dr["Closed"];
+            return info;
         }
     }
 }

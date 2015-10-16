@@ -20,5 +20,23 @@ namespace LTDataLayer.ControlLayer
         {
             return TicketsProvider.Instance.SelectAll();
         }
+
+        //TODO: summary
+        public static List<TicketInfo> SelectByPoll(PollInfo poll)
+        {
+            return TicketsProvider.Instance.SelectByPoll(poll);
+        }
+        
+        //TODO: summary
+        public static List<TicketInfo> SelectByUser(UserInfo userInfo)
+        {
+            return TicketsProvider.Instance.SelectByUser(userInfo);
+        }
+
+        //TODO: summary
+        public static void Insert(TicketInfo ticket)
+        {
+            ticket.ID = TicketsProvider.Instance.Insert(ticket);
+        }
     }
 }

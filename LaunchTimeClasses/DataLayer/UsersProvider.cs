@@ -66,11 +66,11 @@ namespace LTDataLayer.DataLayer
         public override UserInfo DataToInfo(SqlCeDataReader dr)
         {
             UserInfo info = new UserInfo();
-            if (dr["ID"] != null)
+            if (ColumnExists(dr, "ID"))
                 info.ID = Convert.ToInt32(dr["ID"]);
-            if (dr["Name"] != null)
+            if (ColumnExists(dr, "Name"))
                 info.Name = dr["Name"].ToString();
-            if (dr["Login"] != null)
+            if (ColumnExists(dr, "Login"))
                 info.Login = dr["Login"].ToString();
             return info;
         }
@@ -125,11 +125,6 @@ namespace LTDataLayer.DataLayer
             else
             {
                 this.Insert(info);
-            }
-            UserInfo data = list.Find(x => x.ID == info.ID);
-            if (data != null)
-            {
-                data = info;
             }
         }
 

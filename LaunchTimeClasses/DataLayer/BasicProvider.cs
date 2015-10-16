@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlServerCe;
+using System.Data;
 
 namespace LTDataLayer.DataLayer
 {
@@ -69,5 +70,20 @@ namespace LTDataLayer.DataLayer
         /// </summary>
         /// <returns>a list of object of type T</returns>
         public abstract List<T> SelectAll();
+
+        /// <summary>
+        /// Check if a column exists in the data reader
+        /// source: http://stackoverflow.com/questions/1206596/checking-to-see-if-a-column-exists-in-a-data-reader
+        /// </summary>
+        /// <param name="reader">the data reader</param>
+        /// <param name="columnName">the column name</param>
+        /// <returns>true if exists, otherwise false</returns>
+        public bool ColumnExists(IDataReader reader, string columnName)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+                if (reader.GetName(i) == columnName)
+                    return true;
+            return false;
+        }
     }
 }

@@ -20,8 +20,7 @@ namespace LTDataLayer.ControlLayer
         /// <returns>a list of restaurants</returns>
         public static List<RestaurantInfo> AvailableThisWeek(DateTime baseDate)
         {
-            int week = (new GregorianCalendar()).GetWeekOfYear(baseDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Sunday);
-            List<PollInfo> weekPolls = PollsProvider.Instance.SelectByWeek(week);
+            List<PollInfo> weekPolls = PollsController.SelectByWeek(baseDate);
             List<RestaurantInfo> weekRestaurants = (from p in weekPolls
                                                     where p.Date.Date < baseDate.Date
                                                     select p.Winner()).Where(r => r != null).ToList();

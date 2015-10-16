@@ -40,13 +40,13 @@ namespace LTDataLayer.ControlLayer
         {
             if (ticket.Poll.Closed)
                 throw new Exception("Poll closed");
-            List<TicketInfo> userTickets = TicketsProvider.Instance.SelectByUser(ticket.User);
+            List<TicketInfo> userTickets = TicketsController.SelectByUser(ticket.User);
             if (userTickets.Any(t => t.Poll.ID == ticket.Poll.ID))
             {
                 throw new Exception("User already voted in this poll");
             }
 
-            TicketsProvider.Instance.Insert(ticket);
+            TicketsController.Insert(ticket);
             ticket.Poll.AddVote(ticket);
         }
 
@@ -66,6 +66,23 @@ namespace LTDataLayer.ControlLayer
         public static List<PollInfo> ListAll()
         {
             return PollsProvider.Instance.SelectAll();
+        }
+
+        /// <summary>
+        /// Selects a list of polls from the week of base date
+        /// </summary>
+        /// <param name="baseDate">base date</param>
+        /// <returns>a list of polls</returns>
+        public static List<PollInfo> SelectByWeek(DateTime baseDate)
+        {
+            List<PollInfo> polls = PollsProvider.Instance.SelectByWeek(baseDate);
+            foreach (PollInfo poll in polls)
+            {
+                List<TicketInfo> votes = TicketsController.SelectByPoll(poll);
+                foreach (TicketInfo vote in votes)
+                    poll.AddVote(vote);
+            }
+            return polls;
         }
     }
 }
